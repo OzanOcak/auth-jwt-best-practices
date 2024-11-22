@@ -1,0 +1,47 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Backend (Express, Drizzle)
+backend/node_modules/
+backend/dist/
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
+
+# Docker
+backend/docker-compose.yaml
+backend/Dockerfile
+backend/*.dockerignore
+
+# Frontend (React)
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/logs/
+frontend/*.log
+
+backend/logs/
+backend/*.log
+
+# Operating System Files
+frontend/.DS_Store
+frontend/Thumbs.db
+
+frontend/.DS_Store
+frontend/Thumbs.db
+
+# IDE and Editor Files
+frontend/.vscode/
+backend/.vscode/
+
+doc.md
