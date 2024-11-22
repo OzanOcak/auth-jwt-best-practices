@@ -1,3 +1,17 @@
+##JWT Best Practices (Not For Production)
+
+### Features
+
+-Access and Refresh Token
+-Client Id
+-Revocation of Refresh Token
+-Rotation of Refresh Token
+-Access Token is stored in Memory (/w Zustand). 
+-Refresh Token is stored in cookie
+-Refresh Access Token logic handled with Axios Interceptor
+-User Creditentials and Tokens tables save in database
+
+
 ### Project set up and run
 
 `touch .env`
