@@ -68,7 +68,7 @@ export const getAccessToken = async (
 
         // Generate a new refresh token and refresh token ID
         const newRefreshToken = jwt.sign(
-          { id: payloadId },
+          { id: payloadId, role: payloadRole },
           process.env.REFRESH_JWT_SECRET!,
           {
             expiresIn: "7d",

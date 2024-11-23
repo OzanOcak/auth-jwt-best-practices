@@ -6,6 +6,7 @@ export const checkPermissionsToAuthorize = (
 ) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const userRole = req.role as UserRole; // req.role is set in authenticate middleware
+    console.log("rolePermissions: ", roles[userRole]?.permissions);
     const rolePermissions = roles[userRole]?.permissions || [];
 
     // Check if the user has all the required permissions
