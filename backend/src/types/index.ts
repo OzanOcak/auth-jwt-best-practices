@@ -4,6 +4,7 @@ declare global {
   namespace Express {
     interface Request {
       userId?: string; // To store user ID after authentication
+      role?: string;
     }
   }
 }
@@ -17,4 +18,5 @@ export type CreateUserDTO = z.infer<typeof UserSchema>;
 
 export type JWTPayload = {
   id: number; // user[0].id is number
+  role: string;
 };

@@ -52,6 +52,7 @@ export const getAccessToken = async (
         }
 
         const payloadId = payload.id; // Extract id from payload
+        const payloadRole = payload.role;
 
         // Ensure the payload ID is valid
         if (typeof payloadId !== "number") {
@@ -78,7 +79,7 @@ export const getAccessToken = async (
 
         // Generate a new access token
         const newAccessToken = jwt.sign(
-          { id: payloadId },
+          { id: payloadId, role: payloadRole },
           process.env.ACCESS_JWT_SECRET!,
           {
             expiresIn: "2m", // Short-lived access token

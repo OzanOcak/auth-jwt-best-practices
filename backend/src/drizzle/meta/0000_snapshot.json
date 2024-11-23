@@ -1,5 +1,5 @@
 {
-  "id": "ca5dcdc3-af67-4b88-aab6-74966f52e9ac",
+  "id": "4865b0ed-2e23-42be-b0af-7b0e6a2d2fdb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -88,6 +88,13 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
         }
       },
       "indexes": {},

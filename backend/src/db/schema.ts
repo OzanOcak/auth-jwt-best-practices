@@ -5,6 +5,7 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: varchar("username", { length: 50 }).unique().notNull(),
   password: varchar("password", { length: 255 }).notNull(),
+  role: varchar("role", { length: 10 }).default("user").notNull(),
 });
 export const tokens = pgTable("tokens", {
   id: serial("id").primaryKey(),

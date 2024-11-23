@@ -35,10 +35,14 @@ export const authenticate = (
       }
 
       // Set userId in request if token is valid
-      req.userId = (payload as any).id; // Ensure correct typing
-
+      req.userId = (payload as { id: string }).id;
+      req.role = (payload as { role: string }).role;
       //console.log("Authenticated user ID:", req.userId);
       next();
     }
   );
 };
+// When you encode a number in a JWT, it is treated as a string when decoded
+// req.userId = parseInt((payload as { id: string }).id, 10);
+// parseInt(string, 10); 10 for decimal (base 10)
+// Convert string to number if you need it in app logic

@@ -7,6 +7,11 @@ import { register } from "../controller/userControllers/registerUser";
 import { login } from "../controller/userControllers/loginUser";
 import { getAccessToken } from "../controller/userControllers/refreshAccessToken";
 import { logout } from "../controller/userControllers/logoutUser";
+import { checkPermissionsToAuthorize } from "../middleware/authorizeUser";
+import {
+  getAllUsers,
+  updateUserRole,
+} from "../controller/roleControllers/adminRoleController";
 
 const router = Router();
 
@@ -15,6 +20,25 @@ router.post("/login", login);
 router.post("/refresh", getAccessToken);
 router.post("/logout", authenticate, logout);
 // Use the profile controller
-router.get("/profile", authenticate, getUserProfile);
+router.get(
+  "/profile",
+  authenticate,
+  checkPermissionsToAuthorize("view_profile"),
+  getUserProfile
+);
+
+// Admin routes
+router.get(
+  "/admin/users",
+  authenticate,
+  checkPermissionsToAuthorize("view_users"),
+  getAllUsers
+);
+router.post(
+  "/admin/users/update-role",
+  authenticate,
+  checkPermissionsToAuthorize("edit_user_roles"),
+  updateUserRole
+);
 
 export default router;
