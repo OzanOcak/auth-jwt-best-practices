@@ -5,7 +5,9 @@ import { subscribeWithSelector } from "zustand/middleware";
 
 type UserSlice = {
   name: string;
+  role: string;
   setName: (name: string) => void;
+  setRole: (name: string) => void;
 };
 
 type AuthSlice = {
@@ -18,7 +20,9 @@ type Store = UserSlice & AuthSlice;
 
 export const createUserSlice = (set: any, get: any): UserSlice => ({
   name: "",
+  role: "user",
   setName: (name: string) => set({ name }),
+  setRole: (role: string) => set({ role }),
 });
 
 export const createAuthSlice = (set: any): AuthSlice => ({

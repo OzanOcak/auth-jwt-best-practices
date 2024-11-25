@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDatabase } from "./db/dbConn";
-import userRoutes from "./routes/userRoutes";
+import authRoutes from "./routes/authRoutes";
+import roleRoutes from "./routes/roleRoutes";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -26,7 +27,8 @@ const startServer = async () => {
       })
     );
 
-    app.use("/api", userRoutes);
+    app.use("/api", authRoutes);
+    app.use("/api", roleRoutes);
 
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);

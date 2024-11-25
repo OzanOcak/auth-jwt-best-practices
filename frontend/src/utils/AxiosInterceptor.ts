@@ -1,5 +1,6 @@
 import { useStore } from "@/stores/useAuthStore";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -45,6 +46,9 @@ axiosInstance.interceptors.response.use(
 
         if (newAccessToken) {
           useStore.getState().setToken(newAccessToken);
+
+          const payload = jwtDecode(newAccessToken);
+          console.log("jwt decode", payload);
 
           // Set the new access token in the original request's headers
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;

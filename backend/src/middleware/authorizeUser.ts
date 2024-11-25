@@ -9,12 +9,18 @@ export const checkPermissionsToAuthorize = (
     console.log("rolePermissions: ", roles[userRole]?.permissions);
     const rolePermissions = roles[userRole]?.permissions || [];
 
+    console.log(rolePermissions);
+
     // Check if the user has all the required permissions
     const hasPermission = requiredPermissions.every((permission) =>
       rolePermissions.includes(permission)
     );
 
     if (!hasPermission) {
+      // Log the missing permissions for debugging
+      console.error(
+        `${userRole}" lacks permissions: ${requiredPermissions.join(", ")}`
+      );
       res.status(403).json({ message: "Forbidden: You do not have access" });
       return;
     }

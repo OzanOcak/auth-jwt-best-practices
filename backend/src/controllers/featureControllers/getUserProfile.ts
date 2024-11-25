@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../db/dbConn";
-import { users } from "../db/schema";
+import { db } from "../../db/dbConn";
+import { users } from "../../db/schema";
 import { eq } from "drizzle-orm";
 import { console } from "inspector";
 

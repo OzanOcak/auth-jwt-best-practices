@@ -1,6 +1,6 @@
 {
-  "id": "8662d2ac-a68f-4daa-a0bb-3a4e0d1ca36e",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "f36c60b0-54d3-42dc-9a7d-306d53fe712c",
+  "prevId": "8662d2ac-a68f-4daa-a0bb-3a4e0d1ca36e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -94,7 +94,7 @@
           "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'editor'"
+          "default": "'user'"
         }
       },
       "indexes": {},

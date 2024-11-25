@@ -1,6 +1,7 @@
 import { useStore } from "@/stores/useAuthStore";
 import axiosInstance from "@/utils/AxiosInterceptor";
 import { useMutation } from "@tanstack/react-query";
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 // Define the shape of the login data
@@ -36,7 +37,9 @@ const loginUser = async (
   if (accessToken) {
     // Store the access token in local storage
     //localStorage.setItem("accessToken", accessToken);
+    const payload = jwtDecode(accessToken) as { id: string; role: string };
     useStore.getState().setToken(accessToken);
+    useStore.getState().setRole(payload.role); // instead of passing access to refresh tokens
   } else {
     throw new Error("Access token not received");
   }
@@ -62,10 +65,18 @@ export const useLogin = () => {
     mutationFn: loginUser, // The function to call for the mutation
     onSuccess: (data) => {
       console.log(
-        "Login successful, refresh token ID stored:",
-        data.refreshTokenId
+        "Login successful, refresh token ID stored:" /*,data.refreshTokenId */
       );
-      navigate("/profile");
+      const { role } = useStore.getState(); // Get the role from Zustand store
+
+      // Redirect based on user role
+      if (role === "admin") {
+        navigate("/admin"); // Redirect to admin page for admins
+      } else if (role === "editor") {
+        navigate("/editor"); // Redirect to editor page for editors
+      } else {
+        navigate("/profile"); // Redirect to profile page for other roles
+      }
     },
     onError: (error: Error) => {
       console.error("Login failed:", error.message);

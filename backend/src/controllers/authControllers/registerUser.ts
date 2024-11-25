@@ -11,7 +11,7 @@ export const register = async (req: Request, res: Response) => {
 
     const newUser = await db
       .insert(users)
-      .values({ username, password: hashedPassword, role: "user" }) // password:hashedPassword
+      .values({ username, password: hashedPassword, role: "admin" }) // password:hashedPassword
       .returning(); // returns an array from users table
 
     // Exclude password from the response
