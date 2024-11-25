@@ -37,7 +37,7 @@ export const authenticate = (
       // Set userId in request if token is valid
       req.userId = (payload as { id: string }).id;
       req.role = (payload as { role: string }).role;
-      //console.log("Authenticated user ID:", req.userId);
+      console.log("You are:", req.role);
       next();
     }
   );

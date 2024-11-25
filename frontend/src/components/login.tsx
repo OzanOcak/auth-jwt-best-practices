@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
             Login
           </Button>
           <Button asChild type="submit" className="bg-green-600">
-            <NavLink to="/">Create a new account</NavLink>
+            <NavLink to="/signup">Create a new account</NavLink>
           </Button>
         </div>
       </form>

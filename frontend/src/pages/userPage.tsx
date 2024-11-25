@@ -2,6 +2,7 @@ import { useLogout } from "@/hooks/logoutHandler";
 import { useUserName } from "@/hooks/userProfileHandler";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/stores/useAuthStore";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProfilePage() {
   const { mutate: logout } = useLogout();
@@ -12,8 +13,24 @@ export default function ProfilePage() {
     logout();
   };
 
-  if (isPending) return <p>Loading...</p>;
-  if (isError) return <p>Error loading user data: {error.message}</p>;
+  if (isPending)
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <section className="w-4/5 max-w-5xl">
+          <Skeleton className="h-8 w-1/2 mb-4" /> {/* Skeleton for username */}
+          <Skeleton className="h-6 w-1/4" /> {/* Skeleton for logout button */}
+        </section>
+      </main>
+    );
+  if (isError) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <section className="w-4/5 max-w-5xl">
+          <p>Error loading user data: {error.message}</p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

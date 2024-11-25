@@ -38,7 +38,7 @@ router.get(
   ),
   admin
 );
-/*
+
 router.delete(
   "/admin/:userId",
   authenticate,
@@ -48,8 +48,8 @@ router.delete(
 router.patch(
   "/admin/:userId/role",
   authenticate,
-  checkPermissionsToAuthorize("edit_user_roles"),
+  checkPermissionsToAuthorize("edit_user_role"),
   updateUserRole
 );
-*/
+
 export default router;

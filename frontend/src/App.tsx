@@ -6,10 +6,12 @@ import ProfilePage from "./pages/userPage";
 import EditorPage from "./pages/editorPage";
 import AdminPage from "./pages/adminPage";
 import ProtectedRoute from "./components/protectedRoute";
+import NotFound from "./pages/404";
+import "./style.css"; // Import your CSS file
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: (
       <ErrorBoundary
         fallback={<div>Something went wrong while loading the login page.</div>}
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/",
+    path: "/signup",
     element: (
       <ErrorBoundary
         fallback={
@@ -71,6 +73,10 @@ const router = createBrowserRouter([
         </ErrorBoundary>
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "*", // Catch-all route for 404
+    element: <NotFound />, // Render the NotFound component
   },
 ]);
 

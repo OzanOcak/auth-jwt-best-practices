@@ -1,5 +1,6 @@
 import { useStore } from "@/stores/useAuthStore";
 import axiosInstance from "@/utils/AxiosInterceptor";
+import { redirectUser } from "@/utils/routing";
 import { useMutation } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -70,13 +71,7 @@ export const useLogin = () => {
       const { role } = useStore.getState(); // Get the role from Zustand store
 
       // Redirect based on user role
-      if (role === "admin") {
-        navigate("/admin"); // Redirect to admin page for admins
-      } else if (role === "editor") {
-        navigate("/editor"); // Redirect to editor page for editors
-      } else {
-        navigate("/profile"); // Redirect to profile page for other roles
-      }
+      navigate(redirectUser(role));
     },
     onError: (error: Error) => {
       console.error("Login failed:", error.message);

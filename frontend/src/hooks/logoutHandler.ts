@@ -21,7 +21,7 @@ const logoutUser = async (): Promise<void> => {
     if (response.status === 403) {
       alert("Your session has expired. Please log in again.");
       clearToken();
-      window.location.href = "/login"; // Redirect to login
+      window.location.href = "/"; // Redirect to login
       return;
     }
   } catch (error) {
@@ -48,7 +48,7 @@ export const useLogout = () => {
     onSuccess: () => {
       console.log("User logged out successfully.");
       // Optionally redirect to login or home page
-      window.location.href = "/login";
+      window.location.href = "/";
     },
     onError: (error: Error) => {
       console.error("Logout failed:", error.message);

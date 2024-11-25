@@ -1,0 +1,9 @@
+form {
+  max-width: 500px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+.skeleton {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.7; /* Slightly transparent */
+}
