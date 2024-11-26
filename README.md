@@ -15,7 +15,7 @@
 - OTP (branch)
 
 
-### Project set up and run
+### Setting up project
 
 `touch .env`
 
@@ -31,9 +31,13 @@ ACCESS_JWT_SECRET=43064b71b542b7a92294dc63d4b8e7058d1378de6f0768021f658cbd553095
 REFRESH_JWT_SECRET=d4b21a805190a1e0887581aadf9f57723ad0a9fbfe04514338e3d0ced4d38786d53f026858d1eb994ed4104a911766a7ed8a4f395fcdbefab8d32cafa2056543
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/database
 
-# >node
-# >require("crypto").randomBytes(64).toString('hex')
 ```
+you can create random secret numbers for tokens via crytpo node module 
+```bash
+node
+require("crypto").randomBytes(64).toString('hex')
+```
+### Running project
 
 ```bash
 cd backend
