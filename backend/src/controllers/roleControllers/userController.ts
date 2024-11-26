@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
-import { getUserProfile } from "../featureControllers/getUserProfile";
+import { getUserProfile } from "../featureControllers/getProfile";
 
 export const user = async (req: Request, res: Response): Promise<void> => {
   try {
     const profile = await getUserProfile(req, res); // fetch editor's profile
 
-    res.status(200).json({
-      profile: profile,
-    });
+    res.status(200).json({ profile: profile });
   } catch (error) {
     console.error("Error fetching editor data:", error);
     if (!res.headersSent) {

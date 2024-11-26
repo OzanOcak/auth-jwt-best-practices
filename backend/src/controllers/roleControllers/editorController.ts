@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getAllUsers } from "../featureControllers/getAllUsers";
-import { getUserProfile } from "../featureControllers/getUserProfile";
+import { getUserProfile } from "../featureControllers/getProfile";
 
 export const editor = async (req: Request, res: Response): Promise<void> => {
   try {

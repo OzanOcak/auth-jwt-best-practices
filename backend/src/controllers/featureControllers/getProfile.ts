@@ -19,15 +19,22 @@ export const getUserProfile = async (
       .execute();
 
     if (user.length === 0) {
-      res.sendStatus(404);
+      res.status(404).json({ message: "User not found" });
       return;
     }
+
     // Send user data excluding sensitive information
-    //const { password, ...userProfile } = user[0];
+    // const { password, ...userProfile } = user[0];
     console.log(user);
     res.json(user);
+    return;
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    res.status(500).json({ message: "Error fetching user profile." });
+    if (!res.headersSent) {
+      // it gives error if multible headers send with json responses
+      // Check if headers have already been sent
+      res.status(500).json({ message: "Error fetching user profile." });
+      return;
+    }
   }
 };

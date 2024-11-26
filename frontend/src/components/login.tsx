@@ -1,5 +1,5 @@
 import React from "react";
-import { Control, FieldPath, useForm } from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NavLink } from "react-router-dom";

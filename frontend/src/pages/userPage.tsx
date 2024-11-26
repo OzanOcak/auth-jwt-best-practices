@@ -2,7 +2,7 @@ import { useUserName } from "@/hooks/useProfile";
 
 import Layout from "@/components/custom/layout";
 import { Pending } from "@/components/custom/isPending";
-import { Erroring } from "@/components/custom/IsError";
+import { Erroring } from "@/components/custom/isError";
 
 export default function ProfilePage() {
   const { data: userData, isPending, isError, error } = useUserName();
