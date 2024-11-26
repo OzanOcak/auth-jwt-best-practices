@@ -1,4 +1,4 @@
-## Auththorization Code Flow 
+## Authorization Code Flow 
 
 ### Features
 
@@ -11,7 +11,8 @@
 - Refresh Access Token logic handled with Axios Interceptor
 - User Creditentials and Tokens tables save in database
 
-- Role based Authontication
+- Role based Authorization (branch)
+- OTP (branch)
 
 
 ### Project set up and run
