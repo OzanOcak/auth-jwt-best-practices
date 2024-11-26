@@ -65,7 +65,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.setHeader("Authorization", `Bearer ${accessToken}`);
 
     // response id within json body
-    res.json({ refreshTokenId }); //{ refreshTokenId, accessToken, refreshToken }
+    res.json({ username: username, refreshTokenId }); //{ refreshTokenId, accessToken, refreshToken }
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ message: "Error logging in" });

@@ -1,51 +1,18 @@
-import { useLogout } from "@/hooks/logoutHandler";
-import { useUserName } from "@/hooks/userProfileHandler";
-import { Button } from "@/components/ui/button";
-import { useStore } from "@/stores/useAuthStore";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useUserName } from "@/hooks/useProfile";
+
+import Layout from "@/components/custom/layout";
+import { Pending } from "@/components/custom/isPending";
+import { Erroring } from "@/components/custom/IsError";
 
 export default function ProfilePage() {
-  const { mutate: logout } = useLogout();
-  const accessToken = useStore((state) => state.accessToken); // Subscribe to accessToken
   const { data: userData, isPending, isError, error } = useUserName();
 
-  const handleLogout = () => {
-    logout();
-  };
-
-  if (isPending)
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <section className="w-4/5 max-w-5xl">
-          <Skeleton className="h-8 w-1/2 mb-4" /> {/* Skeleton for username */}
-          <Skeleton className="h-6 w-1/4" /> {/* Skeleton for logout button */}
-        </section>
-      </main>
-    );
-  if (isError) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <section className="w-4/5 max-w-5xl">
-          <p>Error loading user data: {error.message}</p>
-        </section>
-      </main>
-    );
-  }
+  if (isPending) return <Pending />;
+  if (isError) return <Erroring />;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <section className="w-4/5 max-w-5xl">
-        {accessToken ? (
-          <>
-            <h1>Hello, {userData.username}!</h1>
-            <Button variant="outline" onClick={handleLogout}>
-              Logout
-            </Button>
-          </>
-        ) : (
-          <p>Please log in</p>
-        )}
-      </section>
-    </main>
+    <Layout>
+      <p>Sorry!, not so many things to do for you</p>
+    </Layout>
   );
 }

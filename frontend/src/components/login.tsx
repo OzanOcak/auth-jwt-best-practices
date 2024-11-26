@@ -14,7 +14,7 @@ import {
 } from "./ui/form";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useLogin } from "@/hooks/loginHandler";
+import { useLogin } from "@/hooks/useLogin";
 
 const loginSchema = z.object({
   username: z.string().min(3, "Username is required").max(50),
@@ -32,11 +32,9 @@ const LoginForm: React.FC = () => {
       password: "",
     },
   });
-  //const navigate = useNavigate();
 
   const onSubmit = async (data: LoginFormInputs) => {
-    loginMutation.mutate(data); //useMutation hook does not return a Promise that resolves when the mutation is complete
-    //navigate("/profile");
+    loginMutation.mutate(data);
   };
 
   return (
@@ -54,7 +52,7 @@ const LoginForm: React.FC = () => {
           name="password"
           label="Password"
           placeholder="Password"
-          description="At least 8 characters."
+          description="At least 6 characters."
           inputType="password"
           formControl={form.control}
         />
@@ -62,7 +60,7 @@ const LoginForm: React.FC = () => {
           <Button type="submit" className="bg-blue-500">
             Login
           </Button>
-          <Button asChild type="submit" className="bg-green-600">
+          <Button asChild type="button" className="bg-green-600">
             <NavLink to="/signup">Create a new account</NavLink>
           </Button>
         </div>
@@ -72,7 +70,7 @@ const LoginForm: React.FC = () => {
 };
 
 type LoginFormFieldProps = {
-  name: FieldPath<LoginFormInputs>;
+  name: keyof LoginFormInputs; // Use keyof for better type safety
   label: string;
   placeholder: string;
   description: string;
@@ -92,18 +90,17 @@ const LoginFormField: React.FC<LoginFormFieldProps> = ({
     <FormField
       control={formControl}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input
-              placeholder={placeholder}
-              type={inputType || "text"}
-              {...field}
-            />
+            <Input placeholder={placeholder} type={inputType} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
+          {fieldState.error && (
+            <FormMessage>{fieldState.error.message}</FormMessage>
+          )}
+          {/* Display error message */}
         </FormItem>
       )}
     />

@@ -5,7 +5,7 @@ import SignupPage from "./pages/signupPage";
 import ProfilePage from "./pages/userPage";
 import EditorPage from "./pages/editorPage";
 import AdminPage from "./pages/adminPage";
-import ProtectedRoute from "./components/protectedRoute";
+import ProtectedRoute from "./components/custom/protectedRoute";
 import NotFound from "./pages/404";
 import "./style.css"; // Import your CSS file
 

@@ -1,26 +1,28 @@
-import { useLogout } from "@/hooks/logoutHandler";
-import { Button } from "@/components/ui/button";
-import { useStore } from "@/stores/useAuthStore";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDeleteUser } from "@/hooks/useDelete";
 import { useQueryClient } from "@tanstack/react-query";
-import { useAdmin } from "@/hooks/useFetchForAdmin";
+import { useAdmin } from "@/hooks/useAdmin";
+import Layout from "@/components/custom/layout";
 
+import { UserItem } from "@/components/custom/userListItem";
+import { useUpdateUserRole } from "@/hooks/useUpdate";
+import { Pending } from "@/components/custom/isPending";
+import { Erroring } from "@/components/custom/IsError";
+
+// AdminPage.tsx
 export default function AdminPage() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { mutate: logout } = useLogout();
-  const accessToken = useStore((state) => state.accessToken);
-  console.log(accessToken);
-
-  const { data: allUsers, isLoading, isError: usersError } = useAdmin();
+  const { data: allUsers, isLoading, isError } = useAdmin();
   const deleteMutation = useDeleteUser();
+  const updateRoleMutation = useUpdateUserRole();
 
   const handleDeleteUser = (userId: string) => {
+    if (isNaN(Number(userId))) {
+      alert("Invalid user ID");
+      return;
+    }
+
     deleteMutation.mutate(userId, {
       onSuccess: () => {
-        // Refetch or update users after deletion
         queryClient.invalidateQueries({ queryKey: ["admin"] });
         alert("User deleted successfully");
       },
@@ -31,50 +33,49 @@ export default function AdminPage() {
     });
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleUpdateUserRole = (userId: string, newRole: string) => {
+    if (!["user", "admin", "editor"].includes(newRole)) {
+      alert("Invalid role");
+      return;
+    }
+
+    updateRoleMutation.mutate(
+      { userId, newRole },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["admin"] });
+          alert("User role updated successfully");
+        },
+        onError: (error) => {
+          console.error("Error updating user role:", error);
+          alert("Failed to update user role. Please try again.");
+        },
+      }
+    );
   };
 
-  // Use useEffect to navigate based on the accessToken
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/"); // Redirect to home if not authenticated
-    }
-  }, [accessToken, navigate]); // Only run effect when accessToken changes
+  if (isLoading) return <Pending />;
+  if (isError) return <Erroring />;
 
-  if (isLoading) return <p>Loading all users...</p>;
-  if (usersError) return <p>Error loading users: {usersError}</p>;
-
-  // Check if allUsers is indeed an array
   if (!Array.isArray(allUsers)) {
-    return <p>Unexpected data format.</p>; // Handle unexpected format
+    return <p>Unexpected data format.</p>;
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <section className="w-4/5 max-w-5xl">
-        {accessToken ? (
-          <>
-            <h1>{allUsers[0].role} Page:</h1>
-            <h2>Hello, {allUsers[0].username}!</h2>
-            <Button variant="outline" onClick={handleLogout}>
-              Logout
-            </Button>
-            <h2 className="mt-8">List of All Users:</h2>
-            <ul>
-              {allUsers.map((user: User) => (
-                <li key={user.id}>{user.username}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p>Please log in</p>
-        )}
-      </section>
-    </main>
+    <Layout>
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold">List of All Users:</h2>
+        <ul className="mt-4 space-y-4">
+          {allUsers.map((user) => (
+            <UserItem
+              key={user.id}
+              user={user}
+              handleDeleteUser={handleDeleteUser}
+              handleUpdateUserRole={handleUpdateUserRole}
+            />
+          ))}
+        </ul>
+      </div>
+    </Layout>
   );
 }
-export type User = {
-  id: string;
-  username: string;
-};

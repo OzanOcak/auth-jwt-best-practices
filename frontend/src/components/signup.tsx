@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useNavigate } from "react-router-dom";
-import { useSignup } from "@/hooks/signupHandler";
+import { useSignup } from "@/hooks/useSignup";
 
 const signupSchema = z.object({
   username: z.string().min(3, "Username is required").max(50),
@@ -37,7 +37,7 @@ const SignupForm: React.FC = () => {
 
   const onSubmit = async (data: SignupFormInputs) => {
     signupMutation.mutate(data);
-    navigate("/login");
+    navigate("/");
   };
 
   return (

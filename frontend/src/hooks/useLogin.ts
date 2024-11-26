@@ -28,7 +28,7 @@ const loginUser = async (
     throw new Error(response.data.message || "Login failed");
   }
   // Get the refreshTokenId from the response body
-  const { refreshTokenId } = response.data;
+  const { username, refreshTokenId } = response.data;
 
   // Access the Authorization header
   const authorizationHeader =
@@ -41,6 +41,7 @@ const loginUser = async (
     const payload = jwtDecode(accessToken) as { id: string; role: string };
     useStore.getState().setToken(accessToken);
     useStore.getState().setRole(payload.role); // instead of passing access to refresh tokens
+    useStore.getState().setName(username); // Set the username in Zustand store
   } else {
     throw new Error("Access token not received");
   }

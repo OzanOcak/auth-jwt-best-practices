@@ -10,7 +10,7 @@ const deleteUser = async (userId: string): Promise<void> => {
     throw new Error("No access token found: profile");
   }
 
-  await axiosInstance.delete(`/admin/:${userId}`, {
+  await axiosInstance.delete(`/admin/${userId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -18,10 +18,8 @@ const deleteUser = async (userId: string): Promise<void> => {
 };
 
 // Custom hook for deleting a user
-const useDeleteUser = () => {
+export const useDeleteUser = () => {
   return useMutation<void, Error, string>({
     mutationFn: deleteUser, // Specify the mutation function here
   });
 };
-
-export { useDeleteUser };
