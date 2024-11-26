@@ -11,6 +11,7 @@ declare global {
 export const UserSchema = z.object({
   username: z.string().min(1).max(50),
   password: z.string().min(6).max(255),
+  email: z.string().email(),
 });
 
 export type CreateUserDTO = z.infer<typeof UserSchema>;

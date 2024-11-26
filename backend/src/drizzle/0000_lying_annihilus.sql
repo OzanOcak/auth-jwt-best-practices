@@ -1,3 +1,10 @@
+CREATE TABLE IF NOT EXISTS "otps" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"otp" varchar(6) NOT NULL,
+	"expires_at" timestamp NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tokens" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
@@ -11,8 +18,10 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"username" varchar(50) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"role" varchar(10) DEFAULT 'editor' NOT NULL,
-	CONSTRAINT "users_username_unique" UNIQUE("username")
+	"role" varchar(10) DEFAULT 'user' NOT NULL,
+	"email" varchar(255) NOT NULL,
+	CONSTRAINT "users_username_unique" UNIQUE("username"),
+	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 DO $$ BEGIN
