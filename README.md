@@ -1,4 +1,4 @@
-## JWT Best Practices (Not For Production)
+## Auththorization Code Flow 
 
 ### Features
 
@@ -10,6 +10,8 @@
 - Refresh Token is stored in cookie
 - Refresh Access Token logic handled with Axios Interceptor
 - User Creditentials and Tokens tables save in database
+
+- Role based Authontication
 
 
 ### Project set up and run
