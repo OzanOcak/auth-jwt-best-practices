@@ -5,6 +5,8 @@ import roleRoutes from "./routes/roleRoutes";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import session from "express-session";
+import passport from "passport";
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -25,6 +27,37 @@ const startServer = async () => {
         credentials: true, // Allow credentials
         exposedHeaders: ["Authorization"], // Expose the Authorization header
       })
+    );
+
+    // Set up session middleware
+    app.use(
+      session({
+        secret: process.env.SESSION_SECRET!,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false }, // Set to true if using HTTPS
+      })
+    );
+
+    // Initialize Passport.js
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // Authentication routes
+    app.get(
+      "/api/auth/google",
+      passport.authenticate("google", {
+        scope: ["profile", "email"],
+      })
+    );
+
+    app.get(
+      "/api/auth/google/callback",
+      passport.authenticate("google", { failureRedirect: "/" }),
+      (req, res) => {
+        // Successful authentication, redirect to your desired route
+        res.redirect("http://localhost:5173"); // Redirect to your frontend
+      }
     );
 
     app.use("/api", authRoutes);

@@ -11,8 +11,10 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"username" varchar(50) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"role" varchar(10) DEFAULT 'editor' NOT NULL,
-	CONSTRAINT "users_username_unique" UNIQUE("username")
+	"role" varchar(10) DEFAULT 'user' NOT NULL,
+	"googleId" varchar(255),
+	CONSTRAINT "users_username_unique" UNIQUE("username"),
+	CONSTRAINT "users_googleId_unique" UNIQUE("googleId")
 );
 --> statement-breakpoint
 DO $$ BEGIN

@@ -20,3 +20,12 @@ export type JWTPayload = {
   id: number; // user[0].id is number
   role: string;
 };
+
+export type User = {
+  id: number;
+  username: string;
+  password: string | null; // Allow null for Google users
+  role: string;
+  googleId?: string | null; // Allow null if not using Google authentication
+};
+export type NewUser = Omit<User, "id">;
