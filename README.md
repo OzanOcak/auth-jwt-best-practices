@@ -66,5 +66,5 @@ npm run dev
 brew install ngrok/ngrok/ngrok
 # login ngrok and get a token to tunnel 
 ngrok config add-authtoken <token>
-ngrok http http://localhost:port
+ngrok http http://localhost:<port>
 ```
